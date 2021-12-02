@@ -1,0 +1,125 @@
+swagger: "2.0"
+info: 
+  title: First Hand With Swagger
+  description: First Swagger Docs made by me
+  version: 1.0
+  contact:
+    email: atrehan789@gmail.com
+  liscence:
+    name: Apache 2.0
+    url: "http://apache.org/"
+  servers:
+    -url: "http://localhost:5001/"
+    description: This is my local server
+
+schemes: [http,https]
+
+paths:
+  /string:
+    get:
+      summary: Returns a String
+      description: It is just returning a fake string
+      responses:
+        200: 
+          description: Success
+          schema:
+            type: string
+            example: "A fake string"
+        400:
+          description: User Error
+        500:
+          description: Internal Server Error
+  
+  /user:
+    get:
+      summary: This one returns a user
+      description: It returns a fake constant user object as lited below
+      responses:
+        200:
+          description: success
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+  
+  /users:
+    get:
+      summary: Returns Array of users
+      description: This will return an array of users
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+  
+  /user/{userId}:
+    get:
+      summary: Returns user with the given Id
+      description: This will take a userId as param in path and will send a user with the same id
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+  
+  # /create:
+  #   post:
+  #     summary: Posting data
+  #     produces: application/json
+  #     consumes: application/json
+  #     parameters:
+  #       - in: body
+  #         name: user
+  #         required: true
+  #         schema:
+  #           type: object
+  #           properties:
+  #             id:
+  #               type: integer
+  #             name:
+  #               type: string
+  #     responses:
+  #       200:
+  #         description: OK
+
+  /create:
+    post:
+      summary: Posting data
+      produces: application/json
+      consumes: application/json
+      parameters:
+        - in: body
+          name: user
+          required: true
+          schema:
+            $ref: "#/components/schemas/User"
+      responses:
+        200:
+          description: OK
+#Query
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+
+

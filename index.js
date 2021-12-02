@@ -42,4 +42,9 @@ app.post('/create',(req,res)=>{
     users.push(body)
     res.status(200).send(users)
 })
+
+app.get('/userQuery',(req,res)=>{
+    const obj = users.find(x=> x.id===parseInt(req.query.id))
+    res.status(200).send(obj)
+})
 app.listen(5001,()=>{console.log('UP & running')})

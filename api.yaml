@@ -111,7 +111,15 @@ paths:
         200:
           description: OK
 #Query
-
+  /userQuery:
+    get:
+      parameters:
+        - in: query
+          name: id
+          type: integer
+      responses:
+        200:
+          description: OK
 components:
   schemas:
     User:

@@ -2,9 +2,10 @@ const express = require('express');
 const swaggerUI = require('swagger-ui-express')
 const YAML = require('yamljs')
 const swaggerJSDocs = YAML.load('./api.yaml')
-
+const fileUpload = require('express-fileupload')
 const app = express()
 app.use(express.json())
+app.use(fileUpload())
 app.use('/api/docs',swaggerUI.serve,swaggerUI.setup(swaggerJSDocs))
 app.get('/string',(req,res)=>{
     res.status(200).send("This is a String")
@@ -46,5 +47,13 @@ app.post('/create',(req,res)=>{
 app.get('/userQuery',(req,res)=>{
     const obj = users.find(x=> x.id===parseInt(req.query.id))
     res.status(200).send(obj)
+})
+
+app.post('/fileUpload',(req,res)=>{
+    const file = req.files.file
+    let path = __dirname+'/upload/'+'file'+Date.now()+'.jpg'
+    file.mv(path,(err)=>{
+        res.send("OK")
+    })
 })
 app.listen(5001,()=>{console.log('UP & running')})

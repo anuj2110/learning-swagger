@@ -120,6 +120,20 @@ paths:
       responses:
         200:
           description: OK
+#file upload
+  /fileUpload:
+    post:
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: file
+          type: file
+          required: true
+      responses:
+        200:
+          description: OK
+          
 components:
   schemas:
     User:
